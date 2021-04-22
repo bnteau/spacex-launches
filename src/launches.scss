@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(2, 2, 24);
+}
+
+.launches {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.launch {
+    width: calc(100vw / 4);
+    height: 500px;
+    margin: 10px auto;
+    overflow: hidden;
+    border: 1px solid grey;
+    color: white;
+    &__background {
+        height: 300px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    &__infos {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__date {
+        font-weight: bold;
+    }
+    &__details {
+        padding: 10px 0;
+    }
+    &__rocket {
+        color: white;
+        background-color: transparent;
+    }
+    &__success {
+        color: white;
+        background-color: rgba(0, 128, 0, 0.3);
+    }
+    &__fail {
+        color: white;
+        background-color: rgba(255, 0, 0, 0.3);
+    }
+    &__url {
+
+    }
+}

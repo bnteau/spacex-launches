@@ -1,8 +1,9 @@
 import { useQuery, gql } from "@apollo/client";
+import "./launches.scss";
 
 const SPACEX_LAUNCHES = gql`
   query GetSpacexLaunches {
-    launches(limit: 5) {
+    launches(limit: 6) {
       launch_date_utc
       launch_success
       rocket {
@@ -10,6 +11,7 @@ const SPACEX_LAUNCHES = gql`
       }
       links {
         video_link
+        flickr_images
       }
       details
     }
@@ -25,14 +27,29 @@ export default function SpacexLaunches() {
     console.log(data);
 
   return (
-      <div>
+      <div className="launches">
           {data.launches.map((launch) => (
-              <div key={launch.launch_date_utc} style={{ marginBottom: "50px" }}>
-                <p>Date : {launch.launch_date_utc}</p>
-                <p>{launch.details}</p>
-                <p>Rocket used : {launch.rocket.rocket_name}</p>
-                {launch.launch_success ? <p>This one was good</p> : <p>Arf</p>}
-                <p>You can watch the launch <a href={launch.links.video_link}>here</a></p>
+              <div
+                key={launch.launch_date_utc} 
+                className="launch"
+              >
+                <div
+                  className="launch__background"
+                  style={{ backgroundImage: `url(${launch.links.flickr_images[0]})` }}
+                >
+                  <p className="launch__rocket">Rocket used : {launch.rocket.rocket_name}</p>
+                  {launch.launch_success ? 
+                    <p className="launch__success">This one was good</p> : 
+                    <p className="launch__fail">Arf</p>
+                  }
+                </div>
+                <div className="launch__infos">
+                    <p className="launch__date">Date : {launch.launch_date_utc}</p>
+                  <p className="launch__details">{launch.details}</p>
+                  <p className="launch__url">
+                    You can watch the launch <a href={launch.links.video_link}>here</a>
+                  </p>
+                </div>
               </div>
           ))}
       </div>
